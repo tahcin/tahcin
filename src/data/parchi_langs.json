@@ -1,0 +1,79 @@
+[
+ {
+  "code": "hi",
+  "name": "हिन्दी",
+  "english": "Hindi",
+  "danger": "यह दवा न छिड़कें",
+  "ok": "ठीक लगता है"
+ },
+ {
+  "code": "mr",
+  "name": "मराठी",
+  "english": "Marathi",
+  "danger": "हे औषध फवारू नका",
+  "ok": "ठीक वाटते"
+ },
+ {
+  "code": "te",
+  "name": "తెలుగు",
+  "english": "Telugu",
+  "danger": "ఈ మందు పిచికారీ చేయవద్దు",
+  "ok": "సరిగ్గా ఉంది"
+ },
+ {
+  "code": "kn",
+  "name": "ಕನ್ನಡ",
+  "english": "Kannada",
+  "danger": "ಈ ಔಷಧಿ ಸಿಂಪಡಿಸಬೇಡಿ",
+  "ok": "ಸರಿಯಾಗಿದೆ"
+ },
+ {
+  "code": "ta",
+  "name": "தமிழ்",
+  "english": "Tamil",
+  "danger": "இந்த மருந்தைத் தெளிக்க வேண்டாம்",
+  "ok": "சரியாக உள்ளது"
+ },
+ {
+  "code": "gu",
+  "name": "ગુજરાતી",
+  "english": "Gujarati",
+  "danger": "આ દવા છાંટશો નહીં",
+  "ok": "બરાબર લાગે છે"
+ },
+ {
+  "code": "pa",
+  "name": "ਪੰਜਾਬੀ",
+  "english": "Punjabi",
+  "danger": "ਇਹ ਦਵਾਈ ਨਾ ਛਿੜਕੋ",
+  "ok": "ਠੀਕ ਲੱਗਦਾ ਹੈ"
+ },
+ {
+  "code": "bn",
+  "name": "বাংলা",
+  "english": "Bengali",
+  "danger": "এই ওষুধ স্প্রে করবেন না",
+  "ok": "ঠিক আছে মনে হচ্ছে"
+ },
+ {
+  "code": "or",
+  "name": "ଓଡ଼ିଆ",
+  "english": "Odia",
+  "danger": "ଏହି ଔଷଧ ସିଞ୍ଚନ କରନ୍ତୁ ନାହିଁ",
+  "ok": "ଠିକ ଅଛି"
+ },
+ {
+  "code": "ml",
+  "name": "മലയാളം",
+  "english": "Malayalam",
+  "danger": "ഈ മരുന്ന് തളിക്കരുത്",
+  "ok": "ശരിയാണെന്ന് തോന്നുന്നു"
+ },
+ {
+  "code": "en",
+  "name": "English",
+  "english": "English",
+  "danger": "Do not spray this",
+  "ok": "Looks OK"
+ }
+]
