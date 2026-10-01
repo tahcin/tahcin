@@ -9,23 +9,19 @@ from lib.motion import BASE_CSS, delay
 from lib.paper import BLUE, INK, RED, sheet, svg_doc
 from lib.printing import FILTERS, X0, X1, furniture, glyph_defs, shadow, strike
 
-H = 712
+H = 616
 ROW0 = 288      # first row top; rows are 48 tall and land on the greenbar bands
 JOBS = [
-    ("GRADESTONE", "Free notes and practice quizzes for BBA",
-     "students: stats, accounting, marketing.", "2025", "LIVE"),
+    ("GRADESTONE", "Free notes and practice quizzes,",
+     "built for BBA students.", "2025", "LIVE"),
     ("IIMBX TRANSCRIPTS", "Chrome extension that talks to the Open",
      "edX APIs, not the page. Resumes mid-run.", "2026", "MIT"),
     ("READING BOARD", "17 whiteboard summaries on luck and",
-     "serendipity. With Pragya and Amrit.", "2026", "RESEARCH"),
+     "serendipity, and one synthesis.", "2026", "RESEARCH"),
     ("TRUESPORTS", "Site for a children's sports coaching",
      "company in Bengaluru. With Priyanshi.", "2026", "CLIENT"),
     ("IMAGE-KIT", "Background removal in the browser",
      "(RMBG-1.4 on the GPU), plus upscaling.", "2025", "TOOL"),
-    ("IKS STUDY GUIDE", "A study site for the Indian Knowledge",
-     "Systems course: iks.gradestone.in", "2025", "LIVE"),
-    ("STATS QUEST", "Statistics revision as a retro pixel",
-     "quest.", "2025", "GAME"),
 ]
 
 

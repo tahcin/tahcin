@@ -21,9 +21,9 @@
 
 <p align="right"><sub>↳ <a href="https://pet-island.vercel.app">play</a> · <a href="https://github.com/tahcin/pet-island">source</a></sub></p>
 
-<img src="assets/ledger.svg" width="100%" alt="Job log, more hooks: Gradestone, free notes and quizzes for BBA students; an IIMBx transcript downloader extension; the luck and serendipity reading board; TrueSports, a client site with Priyanshi; image-kit, in-browser background removal; an IKS study guide; Stats Quest. Plus private jobs not shown.">
+<img src="assets/ledger.svg" width="100%" alt="Job log, more hooks: Gradestone, free notes and practice quizzes built for BBA students; an IIMBx transcript downloader extension; the luck and serendipity reading board; TrueSports, a client site with Priyanshi; image-kit, in-browser background removal. Plus private jobs not shown.">
 
-<p align="right"><sub>↳ <a href="https://gradestone.in">gradestone.in</a> · <a href="https://github.com/tahcin/iimbx-transcript-downloader">transcripts</a> · <a href="https://github.com/tahcin/luck-serendipity-summaries">reading board</a> · <a href="https://github.com/tahcin/truesports">truesports</a> · <a href="https://github.com/tahcin/image-kit">image-kit</a> · <a href="https://iks.gradestone.in">iks</a> · <a href="https://github.com/tahcin/stats2">stats quest</a></sub></p>
+<p align="right"><sub>↳ <a href="https://gradestone.in">gradestone.in</a> · <a href="https://github.com/tahcin/iimbx-transcript-downloader">transcripts</a> · <a href="https://github.com/tahcin/luck-serendipity-summaries">reading board</a> · <a href="https://github.com/tahcin/truesports">truesports</a> · <a href="https://github.com/tahcin/image-kit">image-kit</a></sub></p>
 
 <img src="assets/timecard.svg" width="100%" alt="Time card: contributions in the last year, mostly in private repositories, shown as a punched card with one slot per day. The busiest days are punched clean through.">
 
