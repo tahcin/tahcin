@@ -28,7 +28,7 @@ reprints the whole job every morning.
 |---|---|---|---|
 | The machine | facts, data, job fields | ink `#18181B` | a hand-built 5x7 dot-matrix face (`src/lib/dotmatrix.py`), Martian Mono |
 | The human | opinions, asides, the first person | ballpoint `#2A3FD0` | Instrument Serif Italic, pen strokes |
-| The institution | verdicts and status | stamp red `#D8362A` | Archivo Expanded, worn with an SVG turbulence filter |
+| The institution | verdicts and results | stamp red `#D8362A` | used sparingly: Parchi's verdict, LIVE jobs, FIRST PLACE |
 
 Headlines are Archivo at its narrowest, heaviest instance, pressed onto the
 sheet. Paper is `#F2EDE1`; the time card is buff `#E7D6A4`; Parchi's chit is
@@ -54,14 +54,14 @@ nothing moves.
 
 | Sheet | File | What it does |
 |---|---|---|
-| 01 | `assets/hero.svg` | A banner page. The printhead crosses twice and strikes the name in giant pins. |
+| 01 | `assets/hero.svg` | A banner page. The printhead crosses twice and strikes the name in giant pins; a hand annotates it. |
 | 02 | `assets/hooks.svg` | "Luck has hooks." Chance falls; a few events are caught. The thesis of the page. |
-| 03 | `assets/parchi.svg` | Case file. A dealer's chit, the rule engine's printout, a stamp cycling through Parchi's own verdict string in 11 languages. |
+| 03 | `assets/parchi.svg` | Case file. A dealer's chit with Parchi's verdict stamped on it, cycling through Parchi's own verdict string in 11 languages, and the design rule from its README. |
 | 04 | `assets/deadline.svg` | Case file. One pin per real commit: the sync bot above the line, Tahcin below it. |
-| 05 | `assets/island.svg` | Case file. A procedural island, seeded with the date, printed as a halftone. New every day. |
+| 05 | `assets/island.svg` | Case file. First place at Opus Build Day. A procedural island, seeded with the date, printed as a halftone. New every day. |
 | 06 | `assets/ledger.svg` | The job log, one job per greenbar band. |
 | 07 | `assets/timecard.svg` | A year of contributions, punched; the busiest days go clean through the paper. |
-| 08 | `assets/end.svg` | End of job, with a tear-off stub. |
+| 08 | `assets/end.svg` | End of job: the printhead's last pass, a line of thanks, a tear-off stub. |
 
 ## How it is built
 
@@ -103,6 +103,13 @@ whenever `src/` changes, then commits the new printout.
   data-URI fonts under that policy; Firefox does not. So no sheet contains a
   `<text>` element: every line is shaped with HarfBuzz (including Indic
   conjuncts) and drawn as outlines.
+- **No scroll triggers.** An SVG used as an image starts its animations when
+  the page loads, not when it scrolls into view (tested in Chrome and
+  Firefox), and GitHub strips the JavaScript and `loading` attributes that
+  could change that. So the hero carries the one-shot print, and most sheets
+  below it keep one quiet, purposeful loop so something is alive when you
+  arrive: falling chance, the re-inking verdict stamp, a red pin on the sync
+  bot's newest week, a ring around today on the time card, a cursor at the end.
 - **Images are not interactive.** Links live on the image wrappers and in the
   small captions between sheets. Nothing inside an SVG is clickable.
 - **Theme.** The paper is an object, not a background, so it reads on light,

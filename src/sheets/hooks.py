@@ -10,7 +10,7 @@ import random
 
 from lib.fonts import measure, text
 from lib.motion import BASE_CSS, delay
-from lib.paper import BLUE, INK, PENCIL, RED, sheet, svg_doc
+from lib.paper import BLUE, INK, RED, sheet, svg_doc
 from lib.printing import FILTERS, X0, X1, furniture, glyph_defs, rule, shadow, strike
 
 H = 704
@@ -70,7 +70,7 @@ def falling_pins(rng):
 def build():
     rng = random.Random(23)
     sdefs, sbody = sheet(H, seed=29, uid="k", hole_offset=12)
-    head = furniture(2, "RESEARCH NOTES", "IIMB, WITH PRAGYA & AMRIT")
+    head = furniture(2, "RESEARCH NOTES")
 
     # the phrase, pressed in three heavy blows
     words = ["LUCK", "HAS", "HOOKS."]
@@ -94,13 +94,6 @@ def build():
         f'width="{FIELD[2] - FIELD[0] + 50}" height="{FIELD[3] - FIELD[1] + 4}"/></clipPath>'
         f'{rail}<g clip-path="url(#fc)">{pins}</g>{hooks}'
     )
-    ly = FIELD[3] + 22
-    legend = (
-        text("Mono", "FIG. 1  CHANCE, FALLING", FIELD[0] - 30, ly, 10.5, tracking=.8, fill=PENCIL)
-        + text("Mono", "CAUGHT", FIELD[2] + 2, ly, 10.5, tracking=.8, fill=RED, anchor="end")
-        + f'<circle cx="{FIELD[2] - 58}" cy="{ly - 4}" r="4.5" fill="{RED}"/>'
-    )
-
     # the ballpoint answer, under the figure, arrow pointing on to the next sheet
     vx = 640
     voice = (
@@ -132,7 +125,7 @@ def build():
     )
     inner = (
         f"{shadow(sdefs)}{sbody}"
-        f'<g fill="{INK}">{head}</g>{pressed}{attrib}{field}{legend}'
+        f'<g fill="{INK}">{head}</g>{pressed}{attrib}{field}'
         f'{rule(578, 2.3, X0, X1)}{deftxt}{voice}{arrow}'
     )
     inner = f"<defs>{sdefs}{FILTERS}{glyph_defs()}</defs>" + inner

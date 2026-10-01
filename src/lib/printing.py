@@ -53,10 +53,10 @@ def rule(y, t0=0.0, x0=X0, x1=X1, gap=7, r=1.3, speed=260):
     return f'<g fill="{INK}" opacity=".7">{dots}</g>'
 
 
-def furniture(sheet_no, left, right, t0=0.0):
-    """The header every sheet carries: job line, sheet number, dotted rule."""
+def furniture(sheet_no, left, right="", t0=0.0):
+    """The header every sheet carries: sheet number and title, dotted rule."""
     a, _ = strike(f"SHEET {sheet_no:02d}   {left}", X0, 40, t0)
-    b, _ = strike(right, X1, 40, t0 + .2, anchor="end")
+    b = strike(right, X1, 40, t0 + .2, anchor="end")[0] if right else ""
     return a + b + rule(72, t0)
 
 

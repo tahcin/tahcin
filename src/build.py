@@ -21,7 +21,7 @@ BUILDERS = {
     "island": lambda: island.build(datetime.date.today()),
     "ledger": ledger.build,
     "timecard": timecard.build,
-    "end": lambda: end.build(today(), 8),
+    "end": lambda: end.build(today()),
 }
 
 

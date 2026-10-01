@@ -3,13 +3,13 @@
   and reprinted daily by .github/workflows/print.yml. See DESIGN.md.
 -->
 
-<a href="https://tahcin.gradestone.in"><img src="assets/hero.svg" width="100%" alt="TAHCIN SARWAR, printed as a dot-matrix banner page. User: T. Sarwar. School: IIM Bangalore, BBA. Field: luck and serendipity. Handwritten beside it: builds things, studies luck. Stamped ORIGINAL."></a>
+<a href="https://tahcin.gradestone.in"><img src="assets/hero.svg" width="100%" alt="TAHCIN SARWAR, printed as a dot-matrix banner page. User: T. Sarwar. School: IIM Bangalore, BBA. Handwritten beside it: builds things, studies luck."></a>
 
-<a href="https://github.com/tahcin/luck-serendipity-summaries"><img src="assets/hooks.svg" width="100%" alt="Research notes. LUCK HAS HOOKS, a phrase from our supervisor, Prof. Suresh Bhagavatula. A figure of chance events falling, a few caught by hooks. Serendipity: a chance event that becomes valuable only because someone noticed it, connected it to what they knew, and acted on it. Handwritten: so I keep building hooks."></a>
+<a href="https://github.com/tahcin/luck-serendipity-summaries"><img src="assets/hooks.svg" width="100%" alt="Research notes. LUCK HAS HOOKS, a phrase from our supervisor, Prof. Suresh Bhagavatula. Chance events fall; a few are caught by hooks. Serendipity: a chance event that becomes valuable only because someone noticed it, connected it to what they knew, and acted on it. Handwritten: so I keep building hooks."></a>
 
 <p align="right"><sub>↳ <a href="https://github.com/tahcin/luck-serendipity-summaries">the reading board</a></sub></p>
 
-<a href="https://github.com/tahcin/parchi"><img src="assets/parchi.svg" width="100%" alt="Case file: Parchi, built for Google Build with AI 2026. A farmer photographs the pesticide dealer's chit; Gemini reads it, a rule engine checks every product against India's CIB&amp;RC records, and the verdict is spoken in 11 Indian languages. The model reads and explains. It never decides."></a>
+<a href="https://github.com/tahcin/parchi"><img src="assets/parchi.svg" width="100%" alt="Case file: Parchi, built for Google Build with AI 2026. A dealer's chit, stamped with a verdict that cycles through 11 Indian languages. A farmer photographs the dealer's chit; Gemini reads it, a rule engine checks every product against India's pesticide register, and the verdict is spoken in their language. The model reads and explains. It never decides."></a>
 
 <p align="right"><sub>↳ <a href="https://github.com/tahcin/parchi">tahcin/parchi</a></sub></p>
 
@@ -17,7 +17,7 @@
 
 <p align="right"><sub>↳ <a href="https://deadline-dash.vercel.app">live</a> · <a href="https://github.com/tahcin/deadline-dash">source</a></sub></p>
 
-<a href="https://pet-island.vercel.app"><img src="assets/island.svg" width="100%" alt="Case file: Pet Island, built in one day at Opus Build Day, Bangalore. Show it a photo of your pet and a chibi 3D version walks onto a freshly generated island, with six villagers, and talks back. The figure is a procedural island, printed as a halftone, regenerated every day."></a>
+<a href="https://pet-island.vercel.app"><img src="assets/island.svg" width="100%" alt="Case file: Pet Island. First place at Opus Build Day, Bangalore, built in one day. Show it a photo of your pet and a chibi 3D version walks onto a freshly generated island, with six villagers, and talks back. The figure is a procedural island, printed as a halftone, regenerated every day."></a>
 
 <p align="right"><sub>↳ <a href="https://pet-island.vercel.app">play</a> · <a href="https://github.com/tahcin/pet-island">source</a></sub></p>
 
@@ -27,6 +27,6 @@
 
 <img src="assets/timecard.svg" width="100%" alt="Time card: contributions in the last year, mostly in private repositories, shown as a punched card with one slot per day. The busiest days are punched clean through.">
 
-<a href="https://tahcin.gradestone.in"><img src="assets/end.svg" width="100%" alt="End of job. Stamped STILL BUILDING. Thanks for reading the whole printout. Keep this stub: github.com/tahcin, tahcin.gradestone.in, gradestone.in."></a>
+<a href="https://tahcin.gradestone.in"><img src="assets/end.svg" width="100%" alt="End of job. Thanks for reading the whole printout. Keep this stub: github.com/tahcin, tahcin.gradestone.in, gradestone.in."></a>
 
 <p align="center"><sub><a href="https://tahcin.gradestone.in">résumé</a> · <a href="https://gradestone.in">gradestone</a> · <a href="DESIGN.md">how this printout is made</a></sub></p>

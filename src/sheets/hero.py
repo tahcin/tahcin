@@ -2,8 +2,8 @@
 
 Old line printers opened every job with a banner page: the user's name in
 giant letters made of pins, then a block of job fields. This is that page.
-The printhead crosses twice, striking TAHCIN then SARWAR column by column;
-a hand annotates it in ballpoint; an ORIGINAL stamp lands last.
+The printhead crosses twice, striking TAHCIN then SARWAR column by column,
+then a hand annotates it in ballpoint.
 """
 import random
 
@@ -63,7 +63,7 @@ def build(date_str):
     rng = random.Random(7)
     sdefs, sbody = sheet(H, seed=11, uid="h", hole_offset=26)
 
-    head = furniture(1, "PRINTOUT FOR GITHUB.COM/TAHCIN", "JOB 0001")
+    head = furniture(1, "PRINTOUT FOR GITHUB.COM/TAHCIN")
 
     passes, keyframes = "", ""
     for i, (word, top) in enumerate(zip(("TAHCIN", "SARWAR"), NAME_TOP)):
@@ -78,10 +78,9 @@ def build(date_str):
     fields = [
         ("USER", "T. SARWAR"),
         ("SCHOOL", "IIM BANGALORE / BBA"),
-        ("FIELD", "LUCK & SERENDIPITY"),
         ("DATE", date_str.upper()),
     ]
-    t, fy, field_svg = 3.2, 512, ""
+    t, fy, field_svg = 3.2, 524, ""
     for k, v in fields:
         g, t = strike(f"{k:<8}{v}", X0, fy, t, 140)
         field_svg += g
@@ -106,25 +105,14 @@ def build(date_str):
         f'{ux + w2 * .92:.0f} {vy + 70},{ux + w2 + 6:.0f} {vy + 66}"/>'
     )
 
-    stamp = f"""
-<g transform="translate(782 452) rotate(-8)" style="mix-blend-mode:multiply">
- <g class="slam" style="animation-delay:5.4s;--r0:-22deg" filter="url(#wear)" fill="none" stroke="{RED}">
-  <rect x="-142" y="-48" width="284" height="96" rx="6" stroke-width="5"/>
-  <rect x="-133" y="-39" width="266" height="78" rx="3" stroke-width="1.6"/>
-  {text("Wide", "ORIGINAL", 0, 12, 42, tracking=3, anchor="middle", fill=RED, stroke="none")}
-  {text("Mono", "NOT A TEMPLATE · NOT A COPY", 0, 31, 11, tracking=1.6, anchor="middle", fill=RED, stroke="none")}
- </g>
-</g>"""
-
     css = BASE_CSS + keyframes + ".head{opacity:0}"
     inner = (
         f"<defs>{sdefs}{FILTERS}{glyph_defs()}</defs>{shadow(sdefs)}{sbody}"
-        f'<g fill="{INK}">{head}{passes}</g>{field_svg}{cursor}{voice}{stamp}'
+        f'<g fill="{INK}">{head}{passes}</g>{field_svg}{cursor}{voice}'
     )
     return svg_doc(
         H, inner, css,
         title="TAHCIN SARWAR",
         desc="A dot-matrix banner page printing the name Tahcin Sarwar, with job fields: "
-             "IIM Bangalore BBA, luck and serendipity. Annotated in ballpoint: "
-             "builds things, studies luck. Stamped ORIGINAL.",
+             "IIM Bangalore, BBA. Annotated in ballpoint: builds things, studies luck.",
     )

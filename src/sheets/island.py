@@ -9,9 +9,9 @@ did graphics. Depth contours come from marching squares on the same field.
 import math
 import random
 
-from lib.fonts import measure, text
+from lib.fonts import text
 from lib.motion import BASE_CSS, delay
-from lib.paper import BLUE, INK, PENCIL, sheet, svg_doc
+from lib.paper import BLUE, INK, PENCIL, RED, sheet, svg_doc
 from lib.printing import FILTERS, X0, X1, furniture, glyph_defs, rule, shadow, strike
 
 H = 760
@@ -104,7 +104,7 @@ def build(seed_date):
         seed += 1
         h = field(seed)
     sdefs, sbody = sheet(H, seed=61, uid="i", hole_offset=18)
-    head = furniture(5, "CASE FILE: PET ISLAND", "OPUS BUILD DAY")
+    head = furniture(5, "CASE FILE: PET ISLAND")
 
     # halftone island, struck one raster row at a time
     rows = []
@@ -152,53 +152,42 @@ def build(seed_date):
         f'd="M{nx - 120:.0f} {ny + 10:.0f} C{px - 30:.0f} {ny + 10:.0f},{px - 30:.0f} {py + 60:.0f},{px - 8:.0f} {py + 18:.0f} '
         f'M{px - 8:.0f} {py + 18:.0f} l-10 4 M{px - 8:.0f} {py + 18:.0f} l1 11"/>'
     )
-    caption = text("Mono", f"FIG. 3  ISLAND NO. {seed}, GENERATED FOR THIS PRINTOUT", FIG[0], FIG[3] + 56, 9.5,
-                   tracking=.9, fill=PENCIL)
-
-    # right column: what it is
+    # right column: the result first, then what it is
     rx = 572
-    big, t = strike("BUILT IN ONE DAY", rx, 118, .4, 40, pitch=3.3)
-    small, t = strike("OPUS BUILD DAY, BANGALORE", rx, 156, t, 90, pitch=2.1)
-    small2, t = strike("DELIGHT TRACK", rx, 176, t, 90, pitch=2.1)
+    win, t = strike("FIRST PLACE", rx, 116, .4, 30, pitch=4.2, fill=RED)
+    where, t = strike("OPUS BUILD DAY, BANGALORE", rx, 166, t, 90, pitch=2.1)
+    built, t = strike("BUILT IN ONE DAY", rx, 186, t, 90, pitch=2.1)
     body_lines = [
         "Show it a photo of your pet.",
-        "A chibi 3D version walks out",
+        "A chibi 3D version of it walks",
         "onto a freshly generated island,",
-        "with six villagers and their",
-        "quests, and it talks back. It",
-        "remembers what you told it.",
+        "meets six villagers, talks back,",
+        "and remembers what you told it.",
     ]
     body = "".join(
-        text("Roman", ln, rx, 236 + i * 31, 25, fill=INK) for i, ln in enumerate(body_lines)
-    )
-    stack = (
-        text("Mono", "REACT THREE FIBER / THREE.JS", rx, 448, 10, tracking=1, fill=PENCIL)
-        + text("Mono", "HONO / ZUSTAND / CLAUDE API", rx, 466, 10, tracking=1, fill=PENCIL)
-        + text("Mono", "PET-ISLAND.VERCEL.APP", rx, 496, 10, tracking=1, fill=INK)
+        text("Roman", ln, rx, 248 + i * 31, 25, fill=INK) for i, ln in enumerate(body_lines)
     )
     aside = (
         f'<g class="ink" {delay(t_print + 2.1)}>'
-        f'{text("Voice", "fig. 3 is procedural too:", rx, 548, 25, fill=BLUE)}'
-        f'{text("Voice", "a new island every day.", rx + 14, 578, 25, fill=BLUE)}</g>'
+        f'{text("Voice", "the island on the left is", rx, 450, 25, fill=BLUE)}'
+        f'{text("Voice", "procedural too. a new one daily.", rx + 14, 480, 25, fill=BLUE)}</g>'
     )
 
     # the title, set big across the foot of the sheet
     title = f'<g class="press" {delay(t_print + .2)}>{text("Slab", "PET ISLAND", X0 - 4, 732, 128, fill=INK)}</g>'
-    tw = measure("Slab", "PET ISLAND", 128)
-    tag, _ = strike("EVERY ISLAND IS", X0 + tw + 24, 650, t_print + .5, 80, pitch=2.4)
-    tag2, _ = strike("FRESHLY GENERATED.", X0 + tw + 24, 674, t_print + .7, 80, pitch=2.4)
+    url = text("Mono", "PET-ISLAND.VERCEL.APP", X1, 724, 10, tracking=1.2, fill=PENCIL, anchor="end")
 
     inner = (
         f"{shadow(sdefs)}{sbody}"
-        f'<g fill="{INK}">{head}</g>{depth}{island}{pet}{pet_note}{caption}'
-        f"{big}{small}{small2}{body}{stack}{aside}{rule(626, t_print, X0, X1)}{title}{tag}{tag2}"
+        f'<g fill="{INK}">{head}</g>{depth}{island}{pet}{pet_note}'
+        f"{win}{where}{built}{body}{aside}{rule(626, t_print, X0, X1)}{title}{url}"
     )
     inner = f"<defs>{sdefs}{FILTERS}{glyph_defs()}</defs>" + inner
     return svg_doc(
         H, inner, BASE_CSS,
         title="Pet Island",
-        desc="Case file for Pet Island, built in one day at Opus Build Day, Bangalore, Delight "
-             "track. Show it a photo of your pet and a chibi 3D version walks onto a freshly "
+        desc="Case file for Pet Island: first place at Opus Build Day, Bangalore, built in one "
+             "day. Show it a photo of your pet and a chibi 3D version walks onto a freshly "
              "generated island with six villagers, and talks back. The figure is a procedural "
              "island printed as a dot-matrix halftone, regenerated every day.",
     )

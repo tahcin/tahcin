@@ -16,7 +16,7 @@ from lib.motion import BASE_CSS, delay
 from lib.paper import BLUE, INK, PENCIL, RED, sheet, svg_doc
 from lib.printing import FILTERS, X0, X1, furniture, glyph_defs, shadow, strike
 
-H = 724
+H = 664
 DATA = os.path.join(os.path.dirname(__file__), "..", "data", "contributions.json")
 CARD = (X0, 316, X1, 532)        # the buff card
 GX, GY = X0 + 56, CARD[1] + 44   # grid origin (first slot centre)
@@ -74,9 +74,15 @@ def build():
                 col.append(f'<circle cx="{x:.1f}" cy="{y}" r="{r:.1f}" fill="{INK}"/>')
         slots.append(f'<g class="k" {delay(t)}>{"".join(col)}</g>')
     t_punch = 1.2 + n_weeks * .045
+    # today's slot: the punch that hasn't happened yet
+    today_d = days[-1][0]
+    tx = GX + (n_weeks - 1) * pitch
+    ty0 = GY + today_d.weekday() * 24
+    today_ring = (f'<g class="k" {delay(t_punch)}><circle class="blink" cx="{tx:.1f}" cy="{ty0}" r="8.5" '
+                  f'fill="none" stroke="{RED}" stroke-width="1.6"/></g>')
 
     sdefs, sbody = sheet(H, seed=83, uid="c", hole_offset=22, extra_holes="".join(holes))
-    head = furniture(7, "TIME CARD", "LAST 53 WEEKS")
+    head = furniture(7, "TIME CARD")
 
     # the headline is the number itself
     num = f"{total:,}"
@@ -109,7 +115,7 @@ def build():
         f'<rect x="{CARD[0]}" y="{CARD[1]}" width="{CARD[2] - CARD[0]}" height="{CARD[3] - CARD[1]}" fill="{BUFF}"/>'
         f'<rect x="{CARD[0] + 6}" y="{CARD[1] + 6}" width="{CARD[2] - CARD[0] - 12}" height="{CARD[3] - CARD[1] - 12}" '
         f'fill="none" stroke="{RED}" stroke-width="1" opacity=".55"/>'
-        f'{months}{wdays}{"".join(slots)}</g>{"".join(chads)}'
+        f'{months}{wdays}{"".join(slots)}</g>{"".join(chads)}{today_ring}'
     )
 
     # the busiest weekday, circled in ballpoint
@@ -135,11 +141,6 @@ def build():
     for i, (k, v) in enumerate(facts):
         g, t = strike(f"{k:<15}{v}", fx, legend_y + 4 + i * 24, t, 140, pitch=2.1)
         fsvg += g
-    key = (
-        text("Mono", "PIN SIZE = CONTRIBUTIONS THAT DAY.", X0, H - 48, 9.5, tracking=.8, fill=PENCIL)
-        + text("Mono", f"PUNCHED THROUGH = {punch_at} OR MORE.", X0, H - 32, 9.5, tracking=.8, fill=PENCIL)
-    )
-
     css = (
         BASE_CSS
         + ".chad{opacity:0;transform-box:fill-box;transform-origin:50% 50%;animation:chad .5s cubic-bezier(.5,0,1,.5) both}"
@@ -147,7 +148,7 @@ def build():
     )
     inner = (
         f"{shadow(sdefs)}{sbody}"
-        f'<g fill="{INK}">{head}</g>{title}{lbl}{lbl2}{aside}{card}{ring}{note}{fsvg}{key}'
+        f'<g fill="{INK}">{head}</g>{title}{lbl}{lbl2}{aside}{card}{ring}{note}{fsvg}'
     )
     inner = f"<defs>{sdefs}{FILTERS}{glyph_defs()}</defs>" + inner
     return svg_doc(

@@ -6,7 +6,7 @@ projects' own READMEs or live sites.
 """
 from lib.fonts import text
 from lib.motion import BASE_CSS, delay
-from lib.paper import BLUE, INK, PENCIL, RED, sheet, svg_doc
+from lib.paper import BLUE, INK, RED, sheet, svg_doc
 from lib.printing import FILTERS, X0, X1, furniture, glyph_defs, shadow, strike
 
 H = 712
@@ -31,7 +31,7 @@ JOBS = [
 
 def build():
     sdefs, sbody = sheet(H, seed=71, uid="l", hole_offset=34)
-    head = furniture(6, "JOB LOG", f"{len(JOBS):02d} JOBS + PRIVATE")
+    head = furniture(6, "JOB LOG")
 
     title = f'<g class="press" {delay(.3)}>{text("Slab", "MORE HOOKS", X0 - 3, 214, 104, fill=INK)}</g>'
     note = (
@@ -39,7 +39,7 @@ def build():
         f'{text("Voice", "still catching things.", 632, 202, 32, fill=BLUE)}</g>'
     )
 
-    cols = {"no": X0, "job": X0 + 40, "what": X0 + 280, "year": X1 - 172, "status": X1 - 52}
+    cols = {"no": X0, "job": X0 + 40, "what": X0 + 280, "year": X1 - 190, "status": X1 - 30}
     hdr = ""
     for key, label in [("no", "NO"), ("job", "JOB"), ("what", "WHAT IT DOES"), ("year", "YEAR")]:
         g, _ = strike(label, cols[key], 262, 1.0, 200, pitch=1.8)
@@ -62,31 +62,18 @@ def build():
         rows += "</g>"
         g, _ = strike(year, cols["year"], y + 17, t1, 160, pitch=2.2)
         rows += g
-        # status stamp
-        color = RED if status == "LIVE" else INK
-        sw = len(status) * 9.6 + 14
-        rot = (-4, 3, -2, 5, -3, 2, -5)[i]
-        rows += (
-            f'<g transform="translate({cols["status"]} {y + 24}) rotate({rot})" style="mix-blend-mode:multiply">'
-            f'<g class="slam" style="animation-delay:{t1 + .25:.2f}s;--r0:{rot * 3}deg" filter="url(#wear)">'
-            f'<rect x="{-sw / 2:.1f}" y="-12" width="{sw:.1f}" height="23" rx="3" fill="none" stroke="{color}" stroke-width="2"/>'
-            f'{text("Wide", status, 0, 4.5, 11, tracking=1, anchor="middle", fill=color)}</g></g>'
-        )
+        g, _ = strike(status, cols["status"] + 30, y + 17, t1, 160, pitch=2.2,
+                      fill=RED if status == "LIVE" else INK, anchor="end")
+        rows += g
         t = t1 + .1
 
     foot_y = ROW0 + len(JOBS) * 48
     foot, t_end = strike("PRIVATE JOBS NOT SHOWN: CLIENT WORK, RESEARCH TOOLING, AI EXPERIMENTS",
                          X0, foot_y + 26, t + .2, 200, pitch=1.9)
-    tick = (
-        f'<path class="pen" {delay(t_end + .2)} pathLength="1" stroke="{BLUE}" stroke-width="2.2" '
-        f'd="M{X0 + 2} {foot_y + 70} C{X0 + 120} {foot_y + 64},{X0 + 300} {foot_y + 66},{X0 + 420} {foot_y + 62}"/>'
-    )
-    links = text("Mono", "GRADESTONE.IN", X1, foot_y + 64, 10, tracking=1, fill=PENCIL, anchor="end")
-
     inner = (
         f"{shadow(sdefs)}{sbody}"
         f'<g fill="{INK}">{head}</g>{title}{note}{hdr}'
-        f'<path d="M{X0} 278H{X1}" stroke="{INK}" stroke-width="1.2"/>{rows}{foot}{tick}{links}'
+        f'<path d="M{X0} 278H{X1}" stroke="{INK}" stroke-width="1.2"/>{rows}{foot}'
     )
     inner = f"<defs>{sdefs}{FILTERS}{glyph_defs()}</defs>" + inner
     desc = "Job log, smaller projects: " + "; ".join(
