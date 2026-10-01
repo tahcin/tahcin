@@ -56,7 +56,7 @@ nothing moves.
 |---|---|---|
 | 01 | `assets/hero.svg` | A banner page. The printhead crosses twice and strikes the name in giant pins; a hand annotates it. |
 | 02 | `assets/hooks.svg` | "Luck has hooks." Chance falls; a few events are caught. The thesis of the page. |
-| 03 | `assets/parchi.svg` | Case file. A dealer's chit with Parchi's verdict stamped on it, cycling through Parchi's own verdict string in 11 languages, and the design rule from its README. |
+| 03 | `assets/parchi.svg` | Case file. 1,000 farmers in pins, the 68 an extension worker reaches in blue; Parchi's verdict cycling through its 11 languages; the design rule from its README. |
 | 04 | `assets/deadline.svg` | Case file. One pin per real commit: the sync bot above the line, Tahcin below it. |
 | 05 | `assets/island.svg` | Case file. First place at Opus Build Day. A procedural island, seeded with the date, printed as a halftone. New every day. |
 | 06 | `assets/ledger.svg` | The job log, one job per greenbar band. |

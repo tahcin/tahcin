@@ -9,7 +9,7 @@
 
 <p align="right"><sub>↳ <a href="https://github.com/tahcin/luck-serendipity-summaries">the reading board</a></sub></p>
 
-<a href="https://github.com/tahcin/parchi"><img src="assets/parchi.svg" width="100%" alt="Case file: Parchi, built for Google Build with AI 2026. A dealer's chit, stamped with a verdict that cycles through 11 Indian languages. A farmer photographs the dealer's chit; Gemini reads it, a rule engine checks every product against India's pesticide register, and the verdict is spoken in their language. The model reads and explains. It never decides."></a>
+<a href="https://github.com/tahcin/parchi"><img src="assets/parchi.svg" width="100%" alt="Case file: Parchi, Google Build with AI 2026. A field of 1,000 farmers: the 68 an extension worker reaches, and everyone else, advised by the dealer on a chit. Parchi's verdict, do not spray this, cycles through 11 Indian languages. Gemini reads the chit, a rule engine checks it against India's pesticide register, and the verdict is read aloud. The model reads and explains. It never decides."></a>
 
 <p align="right"><sub>↳ <a href="https://github.com/tahcin/parchi">tahcin/parchi</a></sub></p>
 

@@ -1,23 +1,27 @@
 """SHEET 03: case file, Parchi.
 
-One object and one sentence. The object is the dealer's chit, written in
-carbon violet, with Parchi's verdict stamped across it; the stamp re-inks
-itself in each of Parchi's eleven languages (its own UI copy, `danger` in
-src/lib/i18n.ts). The sentence is the design rule from Parchi's README.
+Same grammar as the other case files: one figure in pins, a short story,
+a ballpoint aside, the title set big. The figure is the problem Parchi
+answers: of every 1,000 farmers, government extension staff reach about
+68 (6.8%, ICRISAT, cited in Parchi's README). Everyone else is advised by
+the dealer who sells them the pesticide, on a chit.
+
+The red headline is Parchi's own verdict string (`danger` in its
+src/lib/i18n.ts), cycling through all eleven of its languages.
 """
 import json
 import os
+import random
 
 from lib.fonts import FACES, glyphs, measure, register, text
-from lib.motion import BASE_CSS, SLAM_EASE, delay
-from lib.paper import INK, PENCIL, RED, sheet, svg_doc
-from lib.printing import FILTERS, furniture, glyph_defs, shadow, strike
+from lib.motion import BASE_CSS, delay
+from lib.paper import BLUE, INK, PENCIL, RED, sheet, svg_doc
+from lib.printing import FILTERS, X0, X1, furniture, glyph_defs, rule, shadow, strike
 
-H = 640
-VIOLET = "#4A3B9A"      # carbon-copy ink
-CHIT = "#F6E9B4"        # pale yellow chit paper
-CHIT_LINE = "#E2CF8A"
-LANG_STEP = 1.6         # seconds each language holds the stamp
+H = 722
+GRID = (80, 150, 40, 25, 11)      # x0, y0, columns, rows, pitch: 1,000 farmers
+REACHED = 68                       # 6.8% reached by extension staff
+LANG_STEP = 1.8
 
 SCRIPT_FONT = {
     "hi": "Baloo2", "mr": "Baloo2", "en": "Baloo2", "gu": "BalooBhai2", "or": "BalooBhaina2",
@@ -26,113 +30,127 @@ SCRIPT_FONT = {
 }
 for _f in set(SCRIPT_FONT.values()):
     if _f not in FACES:
-        register(_f, f"{_f}[wght].ttf", {"wght": 700})
+        register(_f, f"{_f}[wght].ttf", {"wght": 600})
 
 LANGS = json.load(open(os.path.join(os.path.dirname(__file__), "..", "data", "parchi_langs.json"),
                        encoding="utf-8"))
 
 
-def verdict_stamp(cx, cy, box_w=272):
-    """A clean double-ruled stamp whose wording cycles through eleven languages."""
+def verdict(x, base, max_w):
+    """The verdict in red, re-set in each of Parchi's languages, with its name under it."""
     n = len(LANGS)
     cycle = n * LANG_STEP
     css, groups = [], []
     for i, lang in enumerate(LANGS):
         font = SCRIPT_FONT[lang["code"]]
-        size = 34
+        size = 44
         w = measure(font, lang["danger"], size)
-        if w > box_w - 36:
-            size *= (box_w - 36) / w
-        ds, _ = glyphs(font, lang["danger"], cx, cy + size * .32, size, anchor="middle", prec=0)
+        if w > max_w:
+            size *= max_w / w
+        ds, _ = glyphs(font, lang["danger"], x, base, size, prec=0)
         a, b = i / n * 100, (i + 1) / n * 100
         css.append(
-            f"@keyframes lg{i}{{0%,{a:.2f}%{{opacity:0;transform:scale(1.25)}}"
-            f"{a + .8:.2f}%{{opacity:1;transform:none}}{b - .4:.2f}%{{opacity:1}}{b:.2f}%,100%{{opacity:0}}}}"
+            f"@keyframes lg{i}{{0%,{a:.2f}%{{opacity:0;transform:translateY(5px)}}"
+            f"{a + 1.2:.2f}%{{opacity:1;transform:none}}{b - .8:.2f}%{{opacity:1}}{b:.2f}%,100%{{opacity:0}}}}"
         )
-        rest = "" if lang["code"] == "en" else ' opacity="0"'   # English when motion is off
+        rest = "" if lang["code"] == "en" else ' opacity="0"'      # English when motion is off
+        label = f"{lang['english'].upper()}  {i + 1:02d}/{n}"
         groups.append(
-            f'<g{rest} style="transform-box:fill-box;transform-origin:50% 50%;'
-            f'animation:lg{i} {cycle}s {SLAM_EASE} infinite"><path d="{"".join(ds)}"/>'
-            f'{text("Mono", lang["english"].upper(), cx, cy + 44, 9, tracking=2, anchor="middle")}</g>'
+            f'<g{rest} style="animation:lg{i} {cycle}s cubic-bezier(.2,.8,.3,1) infinite">'
+            f'<path d="{"".join(ds)}" fill="{RED}"/>'
+            f'{text("Mono", label, x, base + 26, 9.5, tracking=1.6, fill=RED)}</g>'
         )
-    frame = (
-        f'<rect x="{cx - box_w / 2}" y="{cy - 40}" width="{box_w}" height="100" rx="8" '
-        f'fill="none" stroke="{RED}" stroke-width="3.2"/>'
-        f'<rect x="{cx - box_w / 2 + 6}" y="{cy - 34}" width="{box_w - 12}" height="88" rx="5" '
-        f'fill="none" stroke="{RED}" stroke-width="1"/>'
-    )
-    return f'<g fill="{RED}" opacity=".92">{frame}{"".join(groups)}</g>', "".join(css)
-
-
-def chit(t0):
-    x, y, w, h = 100, 112, 330, 440
-    rule_lines = "".join(
-        f'<path d="M{x + 18} {y + yy}H{x + w - 18}" stroke="{CHIT_LINE}" stroke-width="1"/>'
-        for yy in range(96, h - 30, 34)
-    )
-    paper = (
-        f'<rect x="{x + 4}" y="{y + 7}" width="{w}" height="{h}" fill="#000" opacity=".12" filter="url(#lift)"/>'
-        f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{CHIT}"/>{rule_lines}'
-        + text("Mono", "CROP", x + 24, y + 36, 9, tracking=1.6, fill=PENCIL)
-        + text("Mono", "No. 214", x + w - 24, y + 36, 9, tracking=1.6, fill=PENCIL, anchor="end")
-    )
-    lines = [
-        ("Tomato", 74, 32),
-        ("Malathion 50 EC", 160, 28),
-        ("500 ml, spray twice", 194, 22),
-        ("Monocrotophos 36 SL", 262, 28),
-        ("1 bottle", 296, 22),
-    ]
-    ink = "".join(
-        f'<g class="ink" {delay(t0 + .3 + i * .16)}>'
-        f'{text("Voice", s, x + 26 + (14 if size == 22 else 0), y + dy, size, fill=VIOLET)}</g>'
-        for i, (s, dy, size) in enumerate(lines)
-    )
-    stamp, css = verdict_stamp(x + w / 2, y + 362)
-    stamp = (
-        f'<g transform="rotate(-6 {x + w / 2} {y + 362})">'
-        f'<g class="slam" style="animation-delay:{t0 + 1.5:.2f}s;--r0:-14deg">{stamp}</g></g>'
-    )
-    return (
-        f'<g transform="rotate(-2.5 {x + w / 2} {y + h / 2})">'
-        f'<g class="ink" {delay(t0)}>{paper}</g>{ink}{stamp}</g>',
-        css,
-    )
+    return "".join(groups), "".join(css)
 
 
 def build():
     sdefs, sbody = sheet(H, seed=41, uid="p", hole_offset=30)
     head = furniture(3, "CASE FILE: PARCHI")
-    chit_svg, stamp_css = chit(.4)
 
-    rx = 500
-    title = f'<g class="press" {delay(.3)}>{text("Slab", "PARCHI", rx - 4, 214, 132, fill=INK)}</g>'
-    gloss = text("Voice", "parchi (n.): the chit a pesticide dealer writes.", rx, 254, 22, fill=PENCIL)
-    story = [
-        "A farmer photographs the dealer's chit.",
-        "Gemini reads it, a rule engine checks every",
-        "product against India's pesticide register,",
-        "and the verdict is spoken in their language.",
-    ]
-    body = "".join(text("Roman", ln, rx, 304 + i * 30, 23, fill=INK) for i, ln in enumerate(story))
-    quote = (
-        f'<g class="press" {delay(1.6)}>{text("Slab", "THE MODEL READS", rx - 2, 474, 46, fill=INK)}</g>'
-        f'<g class="press" {delay(1.8)}>{text("Slab", "AND EXPLAINS.", rx - 2, 520, 46, fill=INK)}</g>'
-        f'<g class="press" {delay(2.1)}>{text("Slab", "IT NEVER DECIDES.", rx - 2, 566, 46, fill=RED)}</g>'
+    # the figure: 1,000 farmers, struck row by row; the reached ones in ballpoint
+    gx, gy, cols, rows, p = GRID
+    rng = random.Random(1162)
+    reached = set(rng.sample(range(cols * rows), REACHED))
+    ink_rows, blue = [], []
+    for r in range(rows):
+        dots = []
+        for c in range(cols):
+            k = r * cols + c
+            cx, cy = gx + c * p + p / 2, gy + r * p + p / 2
+            if k in reached:
+                blue.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="3.7"/>')
+            else:
+                dots.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="2.1"/>')
+        ink_rows.append(f'<g class="k" {delay(.5 + r * .05)}>{"".join(dots)}</g>')
+    t_grid = .5 + rows * .05
+    figure = (
+        f'<g fill="{INK}" opacity=".85">{"".join(ink_rows)}</g>'
+        f'<g class="ink" {delay(t_grid + .2)} fill="{BLUE}">{"".join(blue)}</g>'
     )
-    foot, _ = strike("BUILD WITH AI 2026  /  11 LANGUAGES", rx, 594, 2.4, 160, pitch=1.8)
+    count, _ = strike("1,000 FARMERS", gx, 118, .3, 60, pitch=2.6)
+
+    count += text("Mono", "6.8% REACHED  /  ICRISAT", gx + cols * p, 126, 9, tracking=1.2,
+                  fill=PENCIL, anchor="end")
+
+    # the note, with its arrow leaving the end of the first line for a blue pin
+    ny = gy + rows * p + 58
+    l1 = "the 68 an extension worker reaches."
+    end_x = gx + 4 + measure("Voice", l1, 25) + 10
+    k = min((k for k in reached if k // cols >= rows - 4),
+            key=lambda k: abs(gx + (k % cols) * p - end_x + 30))
+    px, py = gx + (k % cols) * p + p / 2, gy + (k // cols) * p + p / 2
+    note = (
+        f'<g class="ink" {delay(t_grid + .8)}>'
+        f'{text("Voice", l1, gx + 4, ny, 25, fill=BLUE)}'
+        f'{text("Voice", "everyone else is advised by the dealer,", gx + 4, ny + 32, 25, fill=INK)}'
+        f'{text("Voice", "on a chit.", gx + 4, ny + 64, 25, fill=INK)}</g>'
+        f'<path class="pen" {delay(t_grid + 1.1)} pathLength="1" stroke="{BLUE}" stroke-width="2.2" '
+        f'd="M{end_x:.0f} {ny - 8} C{end_x + 22:.0f} {ny - 24},{px + 18:.0f} {py + 22:.0f},{px + 3:.0f} {py + 7:.0f} '
+        f'M{px + 3:.0f} {py + 7:.0f} l2 11 M{px + 3:.0f} {py + 7:.0f} l11 1"/>'
+    )
+
+    # right column, same rhythm as Pet Island: result, context, story, aside
+    rx = 572
+    v_svg, v_css = verdict(rx, 150, X1 - rx)
+    ctx1, t = strike("GOOGLE BUILD WITH AI 2026", rx, 196, 1.0, 90, pitch=2.1)
+    ctx2, t = strike("TRACK 04, AGRICULTURE", rx, 216, t, 90, pitch=2.1)
+    story = [
+        "A farmer photographs the dealer's",
+        "chit. Gemini reads it, a rule",
+        "engine checks every product",
+        "against India's pesticide register,",
+        "and the verdict is read aloud.",
+    ]
+    body = "".join(text("Roman", ln, rx, 280 + i * 31, 25, fill=INK) for i, ln in enumerate(story))
+    a1, a2 = "the model reads and explains.", "it never decides."
+    aside = (
+        f'<g class="ink" {delay(t_grid + 1.6)}>'
+        f'{text("Voice", a1, rx, 474, 27, fill=BLUE)}{text("Voice", a2, rx + 14, 506, 27, fill=BLUE)}</g>'
+    )
+    w_nd = measure("Voice", "never decides.", 27)
+    ux = rx + 14 + measure("Voice", "it ", 27)
+    underline = (
+        f'<path class="pen" {delay(t_grid + 2.1)} pathLength="1" stroke="{BLUE}" stroke-width="2.6" '
+        f'd="M{ux:.0f} 515 C{ux + w_nd * .4:.0f} 511,{ux + w_nd * .7:.0f} 514,{ux + w_nd + 2:.0f} 509"/>'
+    )
+
+    title = f'<g class="press" {delay(t_grid + .2)}>{text("Slab", "PARCHI", X0 - 4, 694, 128, fill=INK)}</g>'
+    repo = text("Mono", "GITHUB.COM/TAHCIN/PARCHI", X1, 686, 10, tracking=1.2, fill=PENCIL, anchor="end")
 
     inner = (
         f"{shadow(sdefs)}{sbody}"
-        f'<g fill="{INK}">{head}</g>{chit_svg}{title}{gloss}{body}{quote}{foot}'
+        f'<g fill="{INK}">{head}</g>{count}{figure}{note}'
+        f"{v_svg}{ctx1}{ctx2}{body}{aside}{underline}"
+        f"{rule(588, t_grid, X0, X1)}{title}{repo}"
     )
     inner = f"<defs>{sdefs}{FILTERS}{glyph_defs()}</defs>" + inner
     return svg_doc(
-        H, inner, BASE_CSS + stamp_css,
+        H, inner, BASE_CSS + v_css,
         title="Parchi",
-        desc="Case file for Parchi, built for Google Build with AI 2026. A pesticide dealer's chit "
-             "for tomato, stamped with the verdict, do not spray this, which cycles through 11 "
-             "Indian languages. A farmer photographs the dealer's chit; Gemini reads it, a rule "
-             "engine checks every product against India's pesticide register, and the verdict is "
-             "spoken in their language. The model reads and explains. It never decides.",
+        desc="Case file for Parchi, Google Build with AI 2026, Track 04. A field of 1,000 pins, one "
+             "per farmer: the 68 an extension worker reaches are blue; everyone else is advised by "
+             "the dealer, on a chit. Parchi's verdict, do not spray this, cycles through 11 Indian "
+             "languages. A farmer photographs the dealer's chit; Gemini reads it, a rule engine "
+             "checks every product against India's pesticide register, and the verdict is read "
+             "aloud. The model reads and explains. It never decides.",
     )
