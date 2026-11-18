@@ -1,3 +1,13 @@
+2026-11-18T14:30:48Z	github-actions[bot]	github-actions[bot]	chore: update notifications-sent.json
+2026-11-18T14:10:31Z	github-actions[bot]	github-actions[bot]	chore: sync deadlines.json
+2026-11-18T13:18:26Z	tahcin	tahcin	fix: moved row starts in old state so the new countdown never flashes before the swap
+2026-11-18T13:14:27Z	tahcin	tahcin	fix: run moved-date and countdown swap on one shared timeline
+2026-11-18T13:13:14Z	tahcin	tahcin	feat: moved deadline swap also flips the countdown, plays every load, no replay button
+2026-11-18T13:07:25Z	tahcin	tahcin	feat: swap moved Agreement deadline from old date to new, once per visitor with replay; drop Dashie
+2026-11-18T13:05:06Z	tahcin	tahcin	feat: Dashie easter egg + sparkle on the moved Agreement deadline
+2026-11-18T13:04:08Z	github-actions[bot]	github-actions[bot]	chore: sync deadlines.json
+2026-11-18T04:30:12Z	github-actions[bot]	github-actions[bot]	chore: sync deadlines.json
+2026-11-17T22:59:31Z	github-actions[bot]	github-actions[bot]	chore: sync deadlines.json
 2026-11-17T14:51:38Z	github-actions[bot]	github-actions[bot]	chore: update notifications-sent.json
 2026-11-17T14:35:19Z	github-actions[bot]	github-actions[bot]	chore: sync deadlines.json
 2026-11-17T04:36:39Z	github-actions[bot]	github-actions[bot]	chore: sync deadlines.json
